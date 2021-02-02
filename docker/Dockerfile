@@ -36,10 +36,7 @@ RUN apt update -qq && \
     chmod 777 -R ./log && \
     echo 1 | ./chinachu installer
 COPY ./run.sh /run.sh
-RUN chmod +x /run.sh && \
-# apt clean
-    apt clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN chmod +x /run.sh
 
 COPY ./chinachu-config.json /Chinachu/config.json
 
@@ -47,6 +44,10 @@ COPY ./chinachu-config.json /Chinachu/config.json
 #### To my RecordedCommand ####
 RUN apt install -qq -y php7.3-cli php7.3-mbstring jq
 #### End ####
+
+# apt clean
+RUN apt clean && \
+    rm -rf /var/lib/apt/lists/*
 
 EXPOSE 40772 9229 10772 20772
 
