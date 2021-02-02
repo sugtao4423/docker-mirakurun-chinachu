@@ -18,7 +18,6 @@ RUN apt update -qq && \
     mkdir /Chinachu && \
     cd /Chinachu && \
     apt install -qq -y build-essential curl git-core vainfo python wget && \
-    apt clean && \
     git clone --depth=1 https://github.com/Chinachu/Chinachu.git . && \
     npm install pm2 -g && \
     pm2 startup && \
@@ -26,7 +25,10 @@ RUN apt update -qq && \
     chmod 777 -R ./log && \
     echo 1 | ./chinachu installer
 COPY ./run.sh /run.sh
-RUN chmod +x /run.sh
+RUN chmod +x /run.sh && \
+# apt clean
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY ./chinachu-config.json /Chinachu/config.json
 
