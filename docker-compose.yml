@@ -38,6 +38,6 @@ services:
       - /home/Chinachu/tmp/:/Chinachu/tmp/
       # Optional
       - ./chinachu/recordedScripts/:/recordedScripts/
-      - ./chinachu/ssh/:/root/.ssh/
+      - ./chinachu/ssh/:/home/node/.ssh/
     restart: always
 
