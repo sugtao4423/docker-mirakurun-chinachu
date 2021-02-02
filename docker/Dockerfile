@@ -5,7 +5,6 @@ RUN apt update -qq && \
     apt install -qq -y \
         git-core \
         autoconf \
-        wget \
         && \
     git clone --depth=1 https://github.com/stz2012/recpt1.git recpt1 && \
     cd recpt1/recpt1 && \
@@ -15,8 +14,6 @@ RUN apt update -qq && \
     make install && \
     cd / && \
     rm -rf /recpt1 && \
-# add mirakurun start script
-    wget https://raw.githubusercontent.com/Chinachu/Mirakurun/master/docker/container-init.sh && \
 # add Chinachu
     mkdir /Chinachu && \
     cd /Chinachu && \
@@ -38,8 +35,6 @@ FROM chinachu/mirakurun:latest
 WORKDIR /
 # add run script
 COPY ./run.sh /run.sh
-# add mirakurun start script
-COPY --from=build /container-init.sh /container-init.sh
 # add recpt1
 COPY --from=build /usr/local/bin/recpt1         /usr/local/bin/recpt1
 COPY --from=build /usr/local/bin/recpt1ctl      /usr/local/bin/recpt1ctl
@@ -47,7 +42,7 @@ COPY --from=build /usr/local/bin/checksignal    /usr/local/bin/checksignal
 # script permission
 RUN chmod +x \
         /run.sh \
-        /container-init.sh \
+        /app/docker/container-init.sh \
         /usr/local/bin/recpt1 \
         /usr/local/bin/recpt1ctl \
         /usr/local/bin/checksignal \

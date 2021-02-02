@@ -3,7 +3,7 @@
 # start mirakurun
 echo 'start mirakurun'
 cd /app
-/container-init.sh &
+./docker/container-init.sh &
 
 # start chinachu
 cd /Chinachu
