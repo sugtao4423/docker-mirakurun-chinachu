@@ -2,7 +2,7 @@ FROM chinachu/mirakurun:latest
 WORKDIR /
 # add recpt1
 RUN apt update -qq && \
-    apt install -y git-core autoconf wget && \
+    apt install -qq -y git-core autoconf wget && \
     git clone --depth=1 https://github.com/stz2012/recpt1.git recpt1 && \
     cd recpt1/recpt1 && \
     ./autogen.sh && \
