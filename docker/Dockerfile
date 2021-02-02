@@ -2,7 +2,11 @@ FROM chinachu/mirakurun:latest
 WORKDIR /
 # add recpt1
 RUN apt update -qq && \
-    apt install -qq -y git-core autoconf wget && \
+    apt install -qq -y \
+        git-core \
+        autoconf \
+        wget \
+        && \
     git clone --depth=1 https://github.com/stz2012/recpt1.git recpt1 && \
     cd recpt1/recpt1 && \
     ./autogen.sh && \
@@ -17,7 +21,14 @@ RUN apt update -qq && \
 # add Chinachu
     mkdir /Chinachu && \
     cd /Chinachu && \
-    apt install -qq -y build-essential curl git-core vainfo python wget && \
+    apt install -qq -y \
+        build-essential \
+        curl \
+        git-core \
+        vainfo \
+        python \
+        wget \
+        && \
     git clone --depth=1 https://github.com/Chinachu/Chinachu.git . && \
     npm install pm2 -g && \
     pm2 startup && \
