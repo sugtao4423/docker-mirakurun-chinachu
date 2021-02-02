@@ -1,4 +1,4 @@
-FROM chinachu/mirakurun:latest
+FROM chinachu/mirakurun:latest AS build
 WORKDIR /
 # add recpt1
 RUN apt update -qq && \
@@ -17,7 +17,6 @@ RUN apt update -qq && \
     rm -rf /recpt1 && \
 # add mirakurun start script
     wget https://raw.githubusercontent.com/Chinachu/Mirakurun/master/docker/container-init.sh && \
-    chmod +x /container-init.sh && \
 # add Chinachu
     mkdir /Chinachu && \
     cd /Chinachu && \
@@ -30,27 +29,56 @@ RUN apt update -qq && \
         wget \
         && \
     git clone --depth=1 https://github.com/Chinachu/Chinachu.git . && \
-    npm install pm2 -g && \
-    pm2 startup && \
     mkdir ./log && \
     chmod 777 -R ./log && \
     echo 1 | ./chinachu installer
 
+
+FROM chinachu/mirakurun:latest
+WORKDIR /
 # add run script
 COPY ./run.sh /run.sh
-RUN chmod +x /run.sh
+# add mirakurun start script
+COPY --from=build /container-init.sh /container-init.sh
+# add recpt1
+COPY --from=build /usr/local/bin/recpt1         /usr/local/bin/recpt1
+COPY --from=build /usr/local/bin/recpt1ctl      /usr/local/bin/recpt1ctl
+COPY --from=build /usr/local/bin/checksignal    /usr/local/bin/checksignal
+# script permission
+RUN chmod +x \
+        /run.sh \
+        /container-init.sh \
+        /usr/local/bin/recpt1 \
+        /usr/local/bin/recpt1ctl \
+        /usr/local/bin/checksignal \
+        && \
+# add pm2
+    npm install pm2 -g && \
+    pm2 startup
+# add chinachu
+COPY --from=build /Chinachu/ /Chinachu/
 
 # add config file of chinachu
 COPY ./chinachu-config.json /Chinachu/config.json
 
 #### Optional ####
 #### To my RecordedCommand ####
-RUN apt install -qq -y php7.3-cli php7.3-mbstring jq
-#### End ####
-
+RUN apt update -qq && \
+    apt install -qq -y --no-install-recommends \
+        # to parse json
+        jq \
+        # to git
+        git-core \
+        openssh-client \
+        # to send twitter/slack
+        ca-certificates \
+        php7.3-cli \
+        php7.3-mbstring \
+        && \
 # apt clean
-RUN apt clean && \
+    apt clean && \
     rm -rf /var/lib/apt/lists/*
+#### End ####
 
 EXPOSE 40772 9229 10772 20772
 
