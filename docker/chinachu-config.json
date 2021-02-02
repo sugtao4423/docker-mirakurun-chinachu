@@ -1,0 +1,25 @@
+{
+  "uid": 1000,
+  "mirakurunPath": "http://unix:/var/run/mirakurun.sock:/",
+
+  "recordedDir" : "/Chinachu/recorded/",
+  "temporaryDir" : "/Chinachu/tmp/",
+
+  "recordedCommand" : "/recordedScripts/recordedScript.sh",
+
+  "wuiUsers": [
+    "chinachu:yoshikawa"
+  ],
+  "wuiAllowCountries": ["JP"],
+
+  "wuiPort": 10772,
+  "wuiOpenServer": true,
+  "wuiOpenHost": "0.0.0.0",
+  "wuiOpenPort": 20772,
+
+  "recordedFormat": "[<date:yymmdd-HHMM>][<type><channel-sid>]<title>.ts",
+  "storageLowSpaceThresholdMB": 3000,
+  "storageLowSpaceAction": "stop",
+  "storageLowSpaceNotifyTo": null,
+  "storageLowSpaceCommand": ""
+}
