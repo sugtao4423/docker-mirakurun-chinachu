@@ -3,7 +3,7 @@ WORKDIR /
 # add recpt1
 RUN apt update -qq && \
     apt install -y git-core autoconf wget && \
-    git clone https://github.com/stz2012/recpt1.git recpt1 && \
+    git clone --depth=1 https://github.com/stz2012/recpt1.git recpt1 && \
     cd recpt1/recpt1 && \
     ./autogen.sh && \
     ./configure --enable-b25 && \
@@ -19,7 +19,7 @@ RUN apt update -qq && \
     cd /Chinachu && \
     apt install -qq -y build-essential curl git-core vainfo python wget && \
     apt clean && \
-    git clone https://github.com/Chinachu/Chinachu.git . && \
+    git clone --depth=1 https://github.com/Chinachu/Chinachu.git . && \
     npm install pm2 -g && \
     pm2 startup && \
     mkdir ./log && \
