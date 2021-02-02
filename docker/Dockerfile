@@ -35,9 +35,12 @@ RUN apt update -qq && \
     mkdir ./log && \
     chmod 777 -R ./log && \
     echo 1 | ./chinachu installer
+
+# add run script
 COPY ./run.sh /run.sh
 RUN chmod +x /run.sh
 
+# add config file of chinachu
 COPY ./chinachu-config.json /Chinachu/config.json
 
 #### Optional ####
