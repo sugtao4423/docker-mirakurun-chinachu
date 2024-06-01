@@ -1,0 +1,50 @@
+services:
+  mirakurun:
+    build:
+      context: ./mirakurun/
+    container_name: mirakurun
+    cap_add:
+      - SYS_ADMIN
+      - SYS_NICE
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - 40772:40772
+      - 9229:9229
+    devices:
+      # for card reader USB
+      - /dev/bus:/dev/bus
+      # pt3
+      - /dev/pt3video0:/dev/pt3video0
+      - /dev/pt3video1:/dev/pt3video1
+      - /dev/pt3video2:/dev/pt3video2
+      - /dev/pt3video3:/dev/pt3video3
+    volumes:
+      - ./mirakurun/conf:/app-config
+      - ./mirakurun/data:/app-data
+    restart: always
+    logging:
+      options:
+        max-file: '1'
+        max-size: 10m
+
+  epgstation:
+    build:
+      context: ./epgstation
+      dockerfile: debian.Dockerfile
+    container_name: epgstation
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - 8888:8888
+      - 8889:8889
+    volumes:
+      - ./epgstation/config:/app/config
+      - ./epgstation/data:/app/data
+      - ./epgstation/logs:/app/logs
+      - /mnt/EPGStation/thumbnail:/app/thumbnail
+      - /mnt/EPGStation/recorded:/app/recorded
+    depends_on:
+      - mirakurun
+    user: '1000:1000'
+    restart: always

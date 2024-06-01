@@ -1,0 +1,7 @@
+docker-compose.yml
+epgstation/*
+mirakurun/config/*
+!mirakurun/config/channels.sample.yml
+!mirakurun/config/server.sample.yml
+!mirakurun/config/tuners.sample.yml
+!.gitkeep
