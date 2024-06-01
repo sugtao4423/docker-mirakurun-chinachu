@@ -1,7 +1,7 @@
 docker-compose.yml
 epgstation/*
-mirakurun/config/*
-!mirakurun/config/channels.sample.yml
-!mirakurun/config/server.sample.yml
-!mirakurun/config/tuners.sample.yml
+mirakurun/conf/*
+!mirakurun/conf/channels.sample.yml
+!mirakurun/conf/server.sample.yml
+!mirakurun/conf/tuners.sample.yml
 !.gitkeep
