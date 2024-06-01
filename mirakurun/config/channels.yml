@@ -30,10 +30,6 @@
   type: GR
   channel: '27'
 
-- name: 放送大学
-  type: GR
-  channel: '28'
-
 - name: NHK BS1
   type: BS
   channel: BS15_0
@@ -116,6 +112,16 @@
   type: BS
   channel: BS09_2
   serviceId: 222
+
+- name: 放送大学 BS1
+  type: BS
+  channel: BS11_0
+  serviceId: 231
+
+- name: 放送大学 BS2
+  type: BS
+  channel: BS11_0
+  serviceId: 232
 
 - name: ＢＳスカパー！
   type: BS
